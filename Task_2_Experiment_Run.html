@@ -23,8 +23,8 @@
 </head>
 <body></body>
 <script>
-    const TRIALS_TYPE_REPS_TRAIN =  2  // number of times each trial type is shown in training
-    const TRIALS_TYPE_REPS = 4 // number of times each trial type is shown
+    const TRIALS_TYPE_REPS_TRAIN =  1  // number of times each trial type is shown in training
+    const TRIALS_TYPE_REPS = 1 // number of times each trial type is shown
     const DURATION_FIXATION = 400  // time the fixation cross is shown
     const DURATION_SOA = 200  // SOA after fixation
     const DURATION_TRIAL = 2000  // time the stimulus is shown
@@ -32,14 +32,11 @@
     const MOVEMENT_COLOR = 'blue'
     const ORIENTATION_COLOR = 'yellow'
     let score = 0
-    let initial_correct = 0
-    let initial_count = 0
-    let initial_confidence = 0
 
     jsPsych = initJsPsych({
             on_finish: function () {
                 let data = jsPsych.data.get()
-                    .filter({trial_type: 'rok', block_type: 'experimental'})
+                    .filter({trial_type: 'rok'})
                     .ignore(
                         [
                             'choices', 'correct_choice', 'trial_duration', 'response_ends_trial',
@@ -243,6 +240,7 @@
                 }
             }
         )
+    
         timeline.push({
             type: jsPsychHtmlKeyboardResponse,
             trial_duration: DURATION_FEEDBACK,
@@ -251,25 +249,16 @@
                 let last_trial_data = jsPsych.data.get().last(1).values()[0]
                 let last_trial_correct = last_trial_data.correct;
                 if (last_trial_correct) {
-                    initial_correct = initial_correct + 1
-                    initial_count = initial_count + 1
-                    initial_confidence = initial_correct/initial_count
-                    return `<div class="stimulus" style="color: green">CORRECT</div><br><br><div class="score" style="color: white">Confidence : ${initial_confidence} </div>`
+                    return `<div class="stimulus" style="color: green">CORRECT</div>`
                 } else {
                     let last_trial_response = jsPsych.data.get().last(1).values()[0].key_press;
                     if (last_trial_response) {
-                        initial_correct = initial_correct - 1
-                        initial_count = initial_count + 1
-                        initial_confidence = initial_correct/initial_count
-                        return `<div class="stimulus" style="color: red">FALSE</div><br><br><div class="score" style="color: white">Confidence : ${initial_confidence} </div>`
+                        return `<div class="stimulus" style="color: red">FALSE</div>`
                     } else {
-                        initial_correct = initial_correct - 2
-                        initial_count = initial_count + 1
-                        initial_confidence = initial_correct/initial_count
-                        return `<div class="stimulus" style="color: red">TOO SLOW</div><br><br><div class="score" style="color: white">Confidence : ${initial_confidence} </div>`
+                        return `<div class="stimulus" style="color: red">TOO SLOW</div>`
                     }
                 }
-            }
+            },
         })
         timeline.push(
             {
@@ -322,7 +311,7 @@
             choices: [' '],
         }
     )
-    
+
     last_task = null
     task_transition = null
     congruency = null
@@ -405,7 +394,6 @@
                     'task_transition': task_transition,
                     'congruency': congruency,
                     'experiment_type': experiment_type,
-                    'initial_confidence' : initial_confidence,
                 }
             }
         )
@@ -512,7 +500,6 @@
                     'task_transition': task_transition,
                     'congruency': congruency,
                     'experiment_type': experiment_type,
-                    'initial_confidence' : initial_confidence,
                 }
             }
         )
@@ -638,7 +625,6 @@
                     'task_transition': task_transition,
                     'congruency': congruency,
                     'experiment_type': experiment_type,
-                    'initial_confidence' : initial_confidence,
                 }
             }
         )

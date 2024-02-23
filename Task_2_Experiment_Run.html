@@ -40,7 +40,7 @@
                     .ignore(
                         [
                             'choices', 'correct_choice', 'trial_duration', 'response_ends_trial',
-                            'opposite_coherence_movement', 'opposite_coherence_orientation',
+                            'opposite_coherence_orientation',
                             'movement_speed', 'oob_size', 'oob_color',
                             'movement_speed_randomisation', 'aperture_width',
                             'aperture_height', 'background_color', 'aperture_background_color',
@@ -49,8 +49,7 @@
                             'number_of_apertures', 'density_unit_area', 'prompt',
                             'aperture_position_left', 'trial_type', 'aperture_position_top', 'aperture_mode',
                             'block_type', 'trial_index', 'time_elapsed',
-                            'internal_node_id', 'number_of_oobs', 'coherence_movement',
-                            'coherence_orientation'
+                            'internal_node_id', 'number_of_oobs'
                         ]
                         /*
                         'rt', 'key_press', 'correct', 'task_type', 'task_transition',
@@ -171,6 +170,9 @@
         let orientation_string = e[2]
         let movement_angle = 180
         let orientation_angle = 180
+        let coherence_orientation = Math.floor(Math.random() * 26); // all random orientation
+        let coherence_movement = Math.floor(Math.random() * 26) + 50; // coherent movement
+        let coherence_movement_opposite = 100 - (coherence_orientation + coherence_movement);
         let response_key = 'f'
         if (movement_string === 'right') {
             movement_angle = 0
@@ -222,10 +224,10 @@
                 aperture_shape: 1,
                 coherent_orientation: orientation_angle,
                 coherent_movement_direction: movement_angle,
-                coherence_orientation: 50, // all random orientation
+                coherence_orientation: coherence_orientation, // all random orientation
                 coherence_orientation_opposite: 0, // all random orientation
-                coherence_movement: 50, // 50 percent coherent movement
-                coherence_movement_opposite: 0,
+                coherence_movement: coherence_movement, // coherent movement
+                coherence_movement_opposite: coherence_movement_opposite,
                 movement_speed_randomisation: 50,
                 fade: true,
                 choices: ['f', 'j'],
@@ -330,6 +332,9 @@
         let orientation_string = e[2]
         let movement_angle = 180
         let orientation_angle = 180
+        let coherence_orientation = Math.floor(Math.random() * 26); // all random orientation
+        let coherence_movement = Math.floor(Math.random() * 26) + 50; // coherent movement
+        let coherence_movement_opposite = 100 - (coherence_orientation + coherence_movement);
         let response_key = 'f'
         if (movement_string === 'right') {
             movement_angle = 0
@@ -379,10 +384,10 @@
                 aperture_shape: 1,
                 coherent_orientation: orientation_angle,
                 coherent_movement_direction: movement_angle,
-                coherence_orientation: 50, // all random orientation
+                coherence_orientation: coherence_orientation, // all random orientation
                 coherence_orientation_opposite: 0, // all random orientation
-                coherence_movement: 50, // 50 percent coherent movement
-                coherence_movement_opposite: 0,
+                coherence_movement: coherence_movement, // percent coherent movement
+                coherence_movement_opposite: coherence_movement_opposite,
                 movement_speed_randomisation: 50,
                 fade: true,
                 choices: ['f', 'j'],
@@ -436,6 +441,9 @@
         let orientation_string = e[2]
         let movement_angle = 180
         let orientation_angle = 180
+        let coherence_orientation = Math.floor(Math.random() * 26); // all random orientation
+        let coherence_movement = Math.floor(Math.random() * 26) + 50; // coherent movement
+        let coherence_movement_opposite = 100 - (coherence_orientation + coherence_movement);
         let response_key = 'f'
         if (movement_string === 'right') {
             movement_angle = 0
@@ -485,10 +493,10 @@
                 aperture_shape: 1,
                 coherent_orientation: orientation_angle,
                 coherent_movement_direction: movement_angle,
-                coherence_orientation: 50, // all random orientation
+                coherence_orientation: coherence_orientation, // all random orientation
                 coherence_orientation_opposite: 0, // all random orientation
-                coherence_movement: 50, // 50 percent coherent movement
-                coherence_movement_opposite: 0,
+                coherence_movement: coherence_movement, // percent coherent movement
+                coherence_movement_opposite: coherence_movement_opposite,
                 movement_speed_randomisation: 50,
                 fade: true,
                 choices: ['f', 'j'],
@@ -537,7 +545,7 @@
             type: jsPsychHtmlKeyboardResponse,
             stimulus: '<div class="instruction">Remember:<br>' +
                 'In this final phase of the experiment, you will have scores basis correct, wrong and too slow answers.<br>' +
-                'It will +2, -10 and -4 respectively.<br>' +
+                'It will +2, -5 and -4 respectively.<br>' +
                 'Press >> Space << to continue',
             choices: [' '],
         }
@@ -561,6 +569,9 @@
         let orientation_string = e[2]
         let movement_angle = 180
         let orientation_angle = 180
+        let coherence_orientation = Math.floor(Math.random() * 26); // all random orientation
+        let coherence_movement = Math.floor(Math.random() * 26) + 50; // coherent movement
+        let coherence_movement_opposite = 100 - (coherence_orientation + coherence_movement);
         let response_key = 'f'
         if (movement_string === 'right') {
             movement_angle = 0
@@ -608,12 +619,10 @@
                 oob_size: 1.5,
                 movement_speed: 30,
                 aperture_shape: 1,
-                coherent_orientation: orientation_angle,
-                coherent_movement_direction: movement_angle,
-                coherence_orientation: 50, // all random orientation
+                coherence_orientation: coherence_orientation, // all random orientation
                 coherence_orientation_opposite: 0, // all random orientation
-                coherence_movement: 50, // 50 percent coherent movement
-                coherence_movement_opposite: 0,
+                coherence_movement: coherence_movement, // percent coherent movement
+                coherence_movement_opposite: coherence_movement_opposite,
                 movement_speed_randomisation: 50,
                 fade: true,
                 choices: ['f', 'j'],
@@ -641,7 +650,7 @@
                 } else {
                     let last_trial_response = jsPsych.data.get().last(1).values()[0].key_press;
                     if (last_trial_response) {
-                        score = score - 10
+                        score = score - 5
                         return `<div class="stimulus" style="color: red">FALSE</div><br><br><div class="score" style="color: white">SCORE : ${score} </div>`
                     } else {
                         score = score - 4

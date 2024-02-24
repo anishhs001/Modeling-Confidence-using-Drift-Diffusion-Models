@@ -545,7 +545,7 @@
             type: jsPsychHtmlKeyboardResponse,
             stimulus: '<div class="instruction">Remember:<br>' +
                 'In this final phase of the experiment, you will have scores basis correct, wrong and too slow answers.<br>' +
-                'It will +2, -5 and -4 respectively.<br>' +
+                'It will +2, -2 and -4 respectively.<br>' +
                 'Press >> Space << to continue',
             choices: [' '],
         }
@@ -650,7 +650,7 @@
                 } else {
                     let last_trial_response = jsPsych.data.get().last(1).values()[0].key_press;
                     if (last_trial_response) {
-                        score = score - 5
+                        score = score - 2
                         return `<div class="stimulus" style="color: red">FALSE</div><br><br><div class="score" style="color: white">SCORE : ${score} </div>`
                     } else {
                         score = score - 4

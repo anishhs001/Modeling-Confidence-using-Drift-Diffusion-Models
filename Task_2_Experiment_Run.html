@@ -255,7 +255,7 @@
                 } else {
                     let last_trial_response = jsPsych.data.get().last(1).values()[0].key_press;
                     if (last_trial_response) {
-                        return `<div class="stimulus" style="color: red">FALSE</div>`
+                        return `<div class="stimulus" style="color: red">WRONG</div>`
                     } else {
                         return `<div class="stimulus" style="color: red">TOO SLOW</div>`
                     }
@@ -523,7 +523,7 @@
                 } else {
                     let last_trial_response = jsPsych.data.get().last(1).values()[0].key_press;
                     if (last_trial_response) {
-                        return `<div class="stimulus" style="color: red">FALSE</div>`
+                        return `<div class="stimulus" style="color: red">WRONG</div>`
                     } else {
                         return `<div class="stimulus" style="color: red">TOO SLOW</div>`
                     }
@@ -547,6 +547,14 @@
                 'In this final phase of the experiment, you will have scores basis correct, wrong and too slow answers.<br>' +
                 'It will +2, -2 and -4 respectively.<br>' +
                 'Press >> Space << to continue',
+            choices: [' '],
+        }
+    )
+    timeline.push(
+        {
+            type: jsPsychHtmlKeyboardResponse,
+            stimulus: '<div class="instruction">Feedback along with scores will be indicated in the following way. <br>Press >> Space << to continue.</div>'+ '<br><br>' +
+            `<div class="stimulus" style="color: green">CORRECT</div><br><br><div class="score" style="color: white">SCORE : ${score} </div>`,
             choices: [' '],
         }
     )
@@ -646,12 +654,12 @@
                 let last_trial_correct = last_trial_data.correct;
                 if (last_trial_correct) {
                     score = score + 2
-                    return `<div class="stimulus" style="color: green">TRUE</div><br><br><div class="score" style="color: white">SCORE : ${score} </div>`
+                    return `<div class="stimulus" style="color: green">CORRECT</div><br><br><div class="score" style="color: white">SCORE : ${score} </div>`
                 } else {
                     let last_trial_response = jsPsych.data.get().last(1).values()[0].key_press;
                     if (last_trial_response) {
                         score = score - 2
-                        return `<div class="stimulus" style="color: red">FALSE</div><br><br><div class="score" style="color: white">SCORE : ${score} </div>`
+                        return `<div class="stimulus" style="color: red">WRONG</div><br><br><div class="score" style="color: white">SCORE : ${score} </div>`
                     } else {
                         score = score - 4
                         return `<div class="stimulus" style="color: red">TOO SLOW</div><br><br><div class="score" style="color: white">SCORE : ${score} </div>`

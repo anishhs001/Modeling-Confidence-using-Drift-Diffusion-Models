@@ -170,9 +170,9 @@
         let orientation_string = e[2]
         let movement_angle = 180
         let orientation_angle = 180
-        let coherence_orientation = Math.floor(Math.random() * 26); // all random orientation
-        let coherence_movement = Math.floor(Math.random() * 26) + 50; // coherent movement
-        let coherence_movement_opposite = 100 - (coherence_orientation + coherence_movement);
+        let coherence_orientation = 50; // all random orientation
+        let coherence_movement = 50; // coherent movement
+        let coherence_movement_opposite = 0;
         let response_key = 'f'
         if (movement_string === 'right') {
             movement_angle = 0

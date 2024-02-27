@@ -1,3 +1,3 @@
 # Modeling_Final_Project
 
-Task 2 of Modeling in Cognitive Science which includes Task Switching
+Drift rate change hypothesis checks using Drift Diffusion Model for brhavioral analysis for a task switching 2 option FCA experiment.

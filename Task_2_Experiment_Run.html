@@ -36,7 +36,7 @@
     jsPsych = initJsPsych({
             on_finish: function () {
                 let data = jsPsych.data.get()
-                    .filter({trial_type: 'rok'})
+                    .filter({trial_type: 'rok', 'block_type': 'training'})
                     .ignore(
                         [
                             'choices', 'correct_choice', 'trial_duration', 'response_ends_trial',
